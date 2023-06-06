@@ -31,7 +31,6 @@ fun SplashScreen(
 ) {
 
     val rotate = remember { Animatable(0f) }
-
     LaunchedEffect(key1 = true) {
         rotate.animateTo(
             targetValue = 360f,
