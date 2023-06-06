@@ -87,7 +87,6 @@ private fun PagerScreen(onBoardingPage: OnBoardingPage) {
             painter = painterResource(id = onBoardingPage.image),
             contentDescription = stringResource(R.string.on_boarding_image)
         )
-
         Text(
             modifier = Modifier
                 .fillMaxWidth(),
