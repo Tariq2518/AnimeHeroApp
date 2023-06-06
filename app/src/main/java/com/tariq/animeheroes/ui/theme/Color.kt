@@ -1,5 +1,8 @@
 package com.tariq.animeheroes.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.Colors
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -22,3 +25,16 @@ val StarColor = Color(0xFFFFC94D)
 val ShimmerLightGray = Color(0xFFF1F1F1)
 val ShimmerMediumGray = Color(0xFFE3E3E3)
 val ShimmerDarkGray = Color(0xFF1D1D1D)
+
+val Colors.onBoardingScreenBackgroundColor
+    @Composable
+    get() = if (!isSystemInDarkTheme()) Color.White else Color.Black
+
+val Colors.titleColor
+    @Composable
+    get() = if (!isSystemInDarkTheme()) Color.DarkGray else Color.LightGray
+
+val Colors.descriptionColor
+    @Composable
+    get() = if (!isSystemInDarkTheme()) Color.DarkGray.copy(alpha = 0.5f)
+    else Color.LightGray.copy(alpha = 0.5f)
