@@ -172,7 +172,6 @@ private fun FinishButton(
                 Text(text = "Finish")
             }
         }
-
     }
 
 }
