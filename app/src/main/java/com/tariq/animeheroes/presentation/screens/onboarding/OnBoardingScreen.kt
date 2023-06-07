@@ -1,17 +1,22 @@
 package com.tariq.animeheroes.presentation.screens.onboarding
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -24,14 +29,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.tariq.animeheroes.R
 import com.tariq.animeheroes.domain.model.OnBoardingPage
 import com.tariq.animeheroes.navigation.Screen
 import com.tariq.animeheroes.ui.theme.EXTRA_LARGE_PADDING
+import com.tariq.animeheroes.ui.theme.PAGING_INDICATOR_SPACING
+import com.tariq.animeheroes.ui.theme.PAGING_INDICATOR_WIDTH
 import com.tariq.animeheroes.ui.theme.Purple700
 import com.tariq.animeheroes.ui.theme.SMALL_PADDING
+import com.tariq.animeheroes.ui.theme.activeIndicatorColor
+import com.tariq.animeheroes.ui.theme.buttonBackgroundColor
 import com.tariq.animeheroes.ui.theme.descriptionColor
+import com.tariq.animeheroes.ui.theme.inActiveIndicatorColor
 import com.tariq.animeheroes.ui.theme.onBoardingScreenBackgroundColor
 import com.tariq.animeheroes.ui.theme.titleColor
 import com.tariq.animeheroes.utils.Constants.ON_BOARDING_PAGE_COUNT
@@ -46,11 +57,11 @@ fun OnBoardingScreen(
         OnBoardingPage.First, OnBoardingPage.Second, OnBoardingPage.Third
     )
     val systemUiController = rememberSystemUiController()
-    if (isSystemInDarkTheme()){
+    if (isSystemInDarkTheme()) {
         systemUiController.setSystemBarsColor(
             color = Color.Black, darkIcons = false
         )
-    }else{
+    } else {
         systemUiController.setSystemBarsColor(
             color = Purple700, darkIcons = false
         )
@@ -63,10 +74,29 @@ fun OnBoardingScreen(
             .background(color = MaterialTheme.colors.onBoardingScreenBackgroundColor)
     ) {
         HorizontalPager(
+            modifier = Modifier.weight(10f),
             state = pagerState,
             verticalAlignment = Alignment.Top
         ) { page ->
             PagerScreen(onBoardingPage = listOfPages[page])
+        }
+
+        HorizontalPagerIndicator(
+            modifier = Modifier
+                .weight(1f)
+                .align(Alignment.CenterHorizontally),
+            pagerState = pagerState,
+            pageCount = ON_BOARDING_PAGE_COUNT,
+            activeColor = MaterialTheme.colors.activeIndicatorColor,
+            inactiveColor = MaterialTheme.colors.inActiveIndicatorColor,
+            indicatorWidth = PAGING_INDICATOR_WIDTH,
+            spacing = PAGING_INDICATOR_SPACING
+        )
+        FinishButton(
+            modifier = Modifier.weight(1f),
+            pagerState = pagerState
+        ) {
+
         }
     }
 
@@ -108,6 +138,40 @@ private fun PagerScreen(onBoardingPage: OnBoardingPage) {
             fontWeight = FontWeight.Medium,
             textAlign = TextAlign.Center
         )
+
+    }
+
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun FinishButton(
+    modifier: Modifier,
+    pagerState: PagerState,
+    onClick: () -> Unit
+) {
+
+    Row(
+        modifier = modifier
+            .padding(horizontal = EXTRA_LARGE_PADDING),
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        AnimatedVisibility(
+            modifier = Modifier
+                .fillMaxWidth(),
+            visible = pagerState.currentPage == 2
+        ) {
+            Button(
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = MaterialTheme.colors.buttonBackgroundColor,
+                    contentColor = Color.White
+                ),
+                onClick = onClick
+            ) {
+                Text(text = "Finish")
+            }
+        }
 
     }
 
