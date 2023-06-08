@@ -36,7 +36,6 @@ fun SplashScreen(
 ) {
 
     val onBoardingCompleted by splashViewModel.onBoardingCompleted.collectAsState()
-
     val rotate = remember { Animatable(0f) }
     LaunchedEffect(key1 = true) {
         rotate.animateTo(
@@ -46,6 +45,7 @@ fun SplashScreen(
                 delayMillis = 200
             )
         )
+
         navController.popBackStack()
         if (onBoardingCompleted) {
             navController.navigate(Screen.HomeScreen.route)
