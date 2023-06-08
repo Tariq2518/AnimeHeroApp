@@ -7,6 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.tariq.animeheroes.presentation.screens.home.HomeScreen
 import com.tariq.animeheroes.presentation.screens.onboarding.OnBoardingScreen
 import com.tariq.animeheroes.presentation.screens.splash.SplashScreen
 import com.tariq.animeheroes.utils.Constants.HERO_SCREEN_ARGUMENT_KEY
@@ -16,7 +17,7 @@ import com.tariq.animeheroes.utils.Constants.HERO_SCREEN_ARGUMENT_KEY
 fun SetupNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screen.OnBoardingScreen.route
+        startDestination = Screen.SplashScreen.route
     ) {
         composable(route = Screen.SplashScreen.route) {
             SplashScreen(navController = navController)
@@ -26,7 +27,7 @@ fun SetupNavGraph(navController: NavHostController) {
             OnBoardingScreen(navController = navController)
         }
         composable(route = Screen.HomeScreen.route) {
-
+            HomeScreen(navController = navController)
         }
         composable(
             route = Screen.HeroScreen.route,

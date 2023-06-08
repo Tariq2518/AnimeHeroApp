@@ -27,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.google.accompanist.pager.HorizontalPagerIndicator
@@ -45,13 +46,15 @@ import com.tariq.animeheroes.ui.theme.descriptionColor
 import com.tariq.animeheroes.ui.theme.inActiveIndicatorColor
 import com.tariq.animeheroes.ui.theme.onBoardingScreenBackgroundColor
 import com.tariq.animeheroes.ui.theme.titleColor
+import com.tariq.animeheroes.utils.Constants.LAST_ON_BOARDING_PAGE
 import com.tariq.animeheroes.utils.Constants.ON_BOARDING_PAGE_COUNT
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnBoardingScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    onBoardingViewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     val listOfPages = listOf(
         OnBoardingPage.First, OnBoardingPage.Second, OnBoardingPage.Third
@@ -96,6 +99,9 @@ fun OnBoardingScreen(
             modifier = Modifier.weight(1f),
             pagerState = pagerState
         ) {
+            navController.popBackStack()
+            navController.navigate(Screen.HomeScreen.route)
+            onBoardingViewModel.saveOnBoardingState(onCompleted = true)
 
         }
     }
@@ -160,7 +166,7 @@ private fun FinishButton(
         AnimatedVisibility(
             modifier = Modifier
                 .fillMaxWidth(),
-            visible = pagerState.currentPage == 2
+            visible = pagerState.currentPage == LAST_ON_BOARDING_PAGE
         ) {
             Button(
                 colors = ButtonDefaults.buttonColors(
