@@ -47,4 +47,5 @@ object NetworkModule {
     fun provideAnimeHeroApi(retrofit: Retrofit): AnimeHeroApi {
         return retrofit.create(AnimeHeroApi::class.java)
     }
+
 }
