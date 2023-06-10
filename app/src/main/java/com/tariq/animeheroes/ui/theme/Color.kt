@@ -2,6 +2,7 @@ package com.tariq.animeheroes.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
@@ -27,29 +28,35 @@ val ShimmerMediumGray = Color(0xFFE3E3E3)
 val ShimmerDarkGray = Color(0xFF1D1D1D)
 
 val Colors.onBoardingScreenBackgroundColor
-    @Composable
-    get() = if (!isSystemInDarkTheme()) Color.White else Color.Black
+    @Composable get() = if (!isSystemInDarkTheme()) Color.White else Color.Black
+
+val Colors.homeScreenBackgroundColor
+    @Composable get() = if (!isSystemInDarkTheme()) Color.White else Color.Black.copy(alpha = 0.96f)
+
 
 val Colors.titleColor
-    @Composable
-    get() = if (!isSystemInDarkTheme()) Color.DarkGray else Color.LightGray
+    @Composable get() = if (!isSystemInDarkTheme()) Color.DarkGray else Color.LightGray
 
 val Colors.descriptionColor
-    @Composable
-    get() = if (!isSystemInDarkTheme()) Color.DarkGray.copy(alpha = 0.5f)
+    @Composable get() = if (!isSystemInDarkTheme()) Color.DarkGray.copy(alpha = 0.5f)
     else Color.LightGray.copy(alpha = 0.5f)
 
 val Colors.activeIndicatorColor
-    @Composable
-    get() = if (!isSystemInDarkTheme()) Purple500
+    @Composable get() = if (!isSystemInDarkTheme()) Purple500
     else Purple700
 
 val Colors.inActiveIndicatorColor
-    @Composable
-    get() = if (!isSystemInDarkTheme()) LightGray
+    @Composable get() = if (!isSystemInDarkTheme()) LightGray
     else DarkGray
 
 val Colors.buttonBackgroundColor
-    @Composable
-    get() = if (!isSystemInDarkTheme()) Purple500
+    @Composable get() = if (!isSystemInDarkTheme()) Purple500
     else Purple700
+
+val Colors.topAppBarContentColor
+    @Composable get() = if (!isSystemInDarkTheme()) Color.White
+    else LightGray
+
+val Colors.topAppBarBackgroundColor
+    @Composable get() = if (!isSystemInDarkTheme()) Purple500
+    else Color.Black
