@@ -57,7 +57,6 @@ fun SplashScreen(
     Splash(rotate.value)
 }
 
-
 @Composable
 private fun Splash(degrees: Float) {
     val systemUiController = rememberSystemUiController()
@@ -100,7 +99,6 @@ private fun Splash(degrees: Float) {
         }
     }
 }
-
 
 @Composable
 @Preview
