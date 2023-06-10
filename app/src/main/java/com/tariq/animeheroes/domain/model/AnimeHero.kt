@@ -3,12 +3,14 @@ package com.tariq.animeheroes.domain.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.tariq.animeheroes.utils.Constants.ANIME_HERO_TABLE
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = ANIME_HERO_TABLE)
 data class AnimeHero(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
-    val name:String,
+    val name: String,
     val image: String,
     val about: String,
     val rating: Double,
