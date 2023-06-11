@@ -73,7 +73,6 @@ class AnimeHeroRemoteMediator(
                     nextPage
                 }
             }
-
             val response = animeHeroApi.getAllAnimeHeroes(page =page)
             if (response.animeHeroes.isNotEmpty()) {
                 animeHeroDatabase.withTransaction {
