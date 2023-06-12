@@ -2,14 +2,18 @@ package com.tariq.animeheroes.presentation.screens.home
 
 import android.util.Log
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.tariq.animeheroes.presentation.components.RatingWidget
+import com.tariq.animeheroes.ui.theme.LARGE_PADDING
 import com.tariq.animeheroes.ui.theme.Purple700
 import com.tariq.animeheroes.ui.theme.homeScreenBackgroundColor
 import com.tariq.animeheroes.ui.theme.onBoardingScreenBackgroundColor
@@ -40,6 +44,10 @@ fun HomeScreen(
         }
     ) {
         Log.i("TAG", "HomeScreen: $it")
+        RatingWidget(
+            modifier = Modifier.padding(all = LARGE_PADDING),
+            rating = 4.3
+        )
     }
 
 }
