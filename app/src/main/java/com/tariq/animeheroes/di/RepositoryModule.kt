@@ -5,6 +5,7 @@ import com.tariq.animeheroes.data.repository.DataStoreOperationsImpl
 import com.tariq.animeheroes.data.repository.Repository
 import com.tariq.animeheroes.domain.repository.DataStoreOperations
 import com.tariq.animeheroes.domain.use_cases.UseCases
+import com.tariq.animeheroes.domain.use_cases.all_anime_heroes.GetAllAnimeHeroesUserCase
 import com.tariq.animeheroes.domain.use_cases.read_onboarding.ReadOnBoardingUseCase
 import com.tariq.animeheroes.domain.use_cases.save_onboarding.SaveOnBoardingUseCase
 import dagger.Module
@@ -29,7 +30,8 @@ object RepositoryModule {
     fun provideUseCases(repository: Repository): UseCases{
         return UseCases(
             saveOnBoardingUseCase = SaveOnBoardingUseCase(repository),
-            readOnBoardingUseCase = ReadOnBoardingUseCase(repository)
+            readOnBoardingUseCase = ReadOnBoardingUseCase(repository),
+            getAllAnimeHeroesUserCase = GetAllAnimeHeroesUserCase(repository)
         )
     }
 }

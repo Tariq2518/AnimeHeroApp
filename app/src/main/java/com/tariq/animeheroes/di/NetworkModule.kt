@@ -1,7 +1,11 @@
 package com.tariq.animeheroes.di
 
+import androidx.paging.ExperimentalPagingApi
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.tariq.animeheroes.data.local.AnimeHeroDatabase
 import com.tariq.animeheroes.data.remote.AnimeHeroApi
+import com.tariq.animeheroes.data.repository.RemoteDataSourceImpl
+import com.tariq.animeheroes.domain.repository.RemoteDataSource
 import com.tariq.animeheroes.utils.Constants.LOCAL_BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -46,6 +50,20 @@ object NetworkModule {
     @Singleton
     fun provideAnimeHeroApi(retrofit: Retrofit): AnimeHeroApi {
         return retrofit.create(AnimeHeroApi::class.java)
+    }
+
+
+    @OptIn(ExperimentalPagingApi::class)
+    @Provides
+    @Singleton
+    fun providesRemoteDataSource(
+        animeHeroApi: AnimeHeroApi,
+        animeHeroDatabase: AnimeHeroDatabase
+    ): RemoteDataSource {
+        return RemoteDataSourceImpl(
+            animeHeroApi = animeHeroApi,
+            animeHeroDatabase = animeHeroDatabase
+        )
     }
 
 }
