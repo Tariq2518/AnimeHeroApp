@@ -69,7 +69,8 @@ private fun Splash(degrees: Float) {
         Box(
             modifier = Modifier
                 .background(Color.Black)
-                .fillMaxSize(), contentAlignment = Alignment.Center
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
         ) {
             Image(
                 modifier = Modifier.rotate(degrees),
