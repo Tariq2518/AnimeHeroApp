@@ -12,6 +12,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.tariq.animeheroes.presentation.common.ListContent
 import com.tariq.animeheroes.presentation.components.RatingWidget
 import com.tariq.animeheroes.ui.theme.LARGE_PADDING
 import com.tariq.animeheroes.ui.theme.Purple700
@@ -41,13 +42,14 @@ fun HomeScreen(
         backgroundColor = MaterialTheme.colors.homeScreenBackgroundColor,
         topBar = {
             HomeTopBar(onSearchClicked = {})
+        },
+        content = {
+            Log.i("TAG", "HomeScreen: $it")
+            ListContent(
+                animeHeroes = allAnimeHeroes,
+                navController = navController
+            )
         }
-    ) {
-        Log.i("TAG", "HomeScreen: $it")
-        RatingWidget(
-            modifier = Modifier.padding(all = LARGE_PADDING),
-            rating = 4.3
-        )
-    }
+    )
 
 }
