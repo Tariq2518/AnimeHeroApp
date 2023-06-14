@@ -3,7 +3,7 @@ package com.tariq.animeheroes.utils
 object Constants {
 
     //const val LOCAL_BASE_URL = "http://10.0.2.2:8080" //for emulator
-    const val LOCAL_BASE_URL = "http://192.168.100.26:8080"
+    const val LOCAL_BASE_URL = "http://192.168.100.23:8080"
     const val HERO_SCREEN_ARGUMENT_KEY = "animeHeroId"
     const val ANIME_HERO_TABLE = "anime_hero_table"
     const val ANIME_HERO_REMOTE_KEY_TABLE = "anime_hero_remote_key_table"

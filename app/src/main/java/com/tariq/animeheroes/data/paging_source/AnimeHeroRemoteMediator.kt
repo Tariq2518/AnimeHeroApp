@@ -1,5 +1,6 @@
 package com.tariq.animeheroes.data.paging_source
 
+import androidx.compose.runtime.currentRecomposeScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -47,6 +48,18 @@ class AnimeHeroRemoteMediator(
             }
     }
 
+    override suspend fun initialize(): InitializeAction {
+        val currentTime = System.currentTimeMillis()
+        val lastUpdatedTime = animeHeroRemoteKeysDao.getRemoteKey(id = 1)?.lastUpdated ?: 0L
+        val cacheTimeOut = 5
+        val differenceInMinutes = (currentTime - lastUpdatedTime) / 1000 / 60
+        return if (differenceInMinutes.toInt() <= cacheTimeOut) {
+            InitializeAction.SKIP_INITIAL_REFRESH
+        } else {
+            InitializeAction.LAUNCH_INITIAL_REFRESH
+        }
+    }
+
     override suspend fun load(loadType: LoadType, state: PagingState<Int, AnimeHero>): MediatorResult {
         return try {
             val page = when (loadType) {
@@ -73,7 +86,7 @@ class AnimeHeroRemoteMediator(
                     nextPage
                 }
             }
-            val response = animeHeroApi.getAllAnimeHeroes(page =page)
+            val response = animeHeroApi.getAllAnimeHeroes(page = page)
             if (response.animeHeroes.isNotEmpty()) {
                 animeHeroDatabase.withTransaction {
                     if (loadType == LoadType.REFRESH) {
@@ -86,7 +99,8 @@ class AnimeHeroRemoteMediator(
                         AnimeHeroRemoteKey(
                             id = animeHero.id,
                             previousPage = previousPage,
-                            nextPage = nextPage
+                            nextPage = nextPage,
+                            lastUpdated = response.lastUpdated
                         )
                     }
                     animeHeroRemoteKeysDao.addAllRemoteKeys(animeHeroRemoteKeys = keys)

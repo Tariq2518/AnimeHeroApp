@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
@@ -40,6 +41,7 @@ import coil.compose.rememberImagePainter
 import com.tariq.animeheroes.R
 import com.tariq.animeheroes.domain.model.AnimeHero
 import com.tariq.animeheroes.navigation.Screen
+import com.tariq.animeheroes.presentation.components.AnimeShimmerEffect
 import com.tariq.animeheroes.presentation.components.RatingWidget
 import com.tariq.animeheroes.ui.theme.ANIME_HERO_ITEM_HEIGHT
 import com.tariq.animeheroes.ui.theme.LARGE_PADDING
@@ -54,21 +56,24 @@ fun ListContent(
     navController: NavHostController
 ) {
 
-    LazyColumn(
-        contentPadding = PaddingValues(all = SMALL_PADDING),
-        verticalArrangement = Arrangement.spacedBy(SMALL_PADDING)
-    ) {
-        items(
-            items = animeHeroes,
-            key = { animeHero: AnimeHero ->
-                animeHero.id
-            }
-        ) { animeHero: AnimeHero? ->
-            animeHero?.let {
-                AnimeHeroItem(
-                    animeHero = it,
-                    navController = navController
-                )
+    val loadingState = handlePagingResult(animeHeroes = animeHeroes)
+    if (loadingState) {
+        LazyColumn(
+            contentPadding = PaddingValues(all = SMALL_PADDING),
+            verticalArrangement = Arrangement.spacedBy(SMALL_PADDING)
+        ) {
+            items(
+                items = animeHeroes,
+                key = { animeHero: AnimeHero ->
+                    animeHero.id
+                }
+            ) { animeHero: AnimeHero? ->
+                animeHero?.let {
+                    AnimeHeroItem(
+                        animeHero = it,
+                        navController = navController
+                    )
+                }
             }
         }
     }
@@ -164,6 +169,33 @@ private fun AnimeHeroItem(
 
 }
 
+@Composable
+fun handlePagingResult(
+    animeHeroes: LazyPagingItems<AnimeHero>
+): Boolean {
+    animeHeroes.apply {
+        val error = when {
+            loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+            loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+            loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+            else -> null
+        }
+
+        return when {
+            loadState.refresh is LoadState.Loading -> {
+                AnimeShimmerEffect()
+                false
+            }
+
+            error != null -> {
+                EmptyScreen(error = error)
+                false
+            }
+
+            else -> true
+        }
+    }
+}
 
 @Composable
 @Preview
