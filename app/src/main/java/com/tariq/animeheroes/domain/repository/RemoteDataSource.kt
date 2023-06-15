@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface RemoteDataSource {
 
     fun getAllAnimeHeroes(): Flow<PagingData<AnimeHero>>
-    fun searchAnimeHeroes(): Flow<PagingData<AnimeHero>>
+    fun searchAnimeHeroes(query: String): Flow<PagingData<AnimeHero>>
 }
