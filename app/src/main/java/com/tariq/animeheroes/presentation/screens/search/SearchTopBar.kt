@@ -42,7 +42,7 @@ fun SearchTopBar(
         text = text,
         onTextChange = onTextChange,
         onSearchClicked = onSearchClicked,
-        onCloseClicked = onCloseClicked
+        onCloseClicked = { onCloseClicked.invoke() }
     )
 }
 
@@ -100,7 +100,7 @@ fun SearchWidget(
                         if (text.isNotEmpty()) {
                             onTextChange("")
                         } else {
-                            onCloseClicked
+                            onCloseClicked.invoke()
                         }
                     }
                 ) {

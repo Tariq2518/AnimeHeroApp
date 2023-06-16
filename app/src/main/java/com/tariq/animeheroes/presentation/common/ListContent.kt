@@ -187,8 +187,13 @@ fun handlePagingResult(
                 false
             }
 
+            this.itemCount < 1 -> {
+                EmptyScreen()
+                false
+            }
+
             error != null -> {
-                EmptyScreen(error = error)
+                EmptyScreen(error = error, animeHeroes = this)
                 false
             }
 

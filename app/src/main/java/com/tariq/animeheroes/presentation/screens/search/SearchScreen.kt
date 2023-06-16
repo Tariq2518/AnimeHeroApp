@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.tariq.animeheroes.presentation.common.ListContent
 
 @Composable
 fun SearchScreen(
@@ -34,6 +35,10 @@ fun SearchScreen(
         },
         content = {
             Log.i("TAG", "SearchScreen: $it")
+            ListContent(
+                animeHeroes = searchedAnimeHeroes,
+                navController = navController
+            )
         }
     )
 
