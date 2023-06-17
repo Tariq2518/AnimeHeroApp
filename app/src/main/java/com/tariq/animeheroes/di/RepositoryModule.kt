@@ -6,6 +6,7 @@ import com.tariq.animeheroes.data.repository.Repository
 import com.tariq.animeheroes.domain.repository.DataStoreOperations
 import com.tariq.animeheroes.domain.use_cases.UseCases
 import com.tariq.animeheroes.domain.use_cases.all_anime_heroes.GetAllAnimeHeroesUserCase
+import com.tariq.animeheroes.domain.use_cases.get_selected_hero.GetSelectedHeroUseCase
 import com.tariq.animeheroes.domain.use_cases.read_onboarding.ReadOnBoardingUseCase
 import com.tariq.animeheroes.domain.use_cases.save_onboarding.SaveOnBoardingUseCase
 import com.tariq.animeheroes.domain.use_cases.search_anime_heroes.SearchAnimeHeroesUseCase
@@ -33,7 +34,8 @@ object RepositoryModule {
             saveOnBoardingUseCase = SaveOnBoardingUseCase(repository),
             readOnBoardingUseCase = ReadOnBoardingUseCase(repository),
             getAllAnimeHeroesUserCase = GetAllAnimeHeroesUserCase(repository),
-            searchAnimeHeroesUseCase = SearchAnimeHeroesUseCase(repository)
+            searchAnimeHeroesUseCase = SearchAnimeHeroesUseCase(repository),
+            getSelectedHeroUseCase = GetSelectedHeroUseCase(repository)
         )
     }
 }

@@ -3,6 +3,8 @@ package com.tariq.animeheroes.di
 import android.content.Context
 import androidx.room.Room
 import com.tariq.animeheroes.data.local.AnimeHeroDatabase
+import com.tariq.animeheroes.data.repository.LocalDataSourceImpl
+import com.tariq.animeheroes.domain.repository.LocalDataSource
 import com.tariq.animeheroes.utils.Constants.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
@@ -24,4 +26,15 @@ object DatabaseModule {
         AnimeHeroDatabase::class.java,
         DATABASE_NAME
     ).build()
+
+
+    @Provides
+    @Singleton
+    fun provideLocalDataSource(
+        data: AnimeHeroDatabase
+    ): LocalDataSource {
+        return LocalDataSourceImpl(
+            animeHeroDatabase = data
+        )
+    }
 }

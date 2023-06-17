@@ -7,6 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.tariq.animeheroes.presentation.screens.details.DetailsScreen
 import com.tariq.animeheroes.presentation.screens.home.HomeScreen
 import com.tariq.animeheroes.presentation.screens.onboarding.OnBoardingScreen
 import com.tariq.animeheroes.presentation.screens.search.SearchScreen
@@ -38,6 +39,7 @@ fun SetupNavGraph(navController: NavHostController) {
             )
         ) {
 
+            DetailsScreen(navController = navController)
         }
         composable(route = Screen.SearchScreen.route) {
             SearchScreen(navController = navController)
