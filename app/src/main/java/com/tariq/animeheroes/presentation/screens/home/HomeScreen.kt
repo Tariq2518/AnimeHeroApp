@@ -21,6 +21,12 @@ import com.tariq.animeheroes.ui.theme.homeScreenBackgroundColor
 import com.tariq.animeheroes.ui.theme.onBoardingScreenBackgroundColor
 import kotlinx.coroutines.flow.collect
 
+
+/**
+ * @param navController is used to handle the navigation from screens
+ * @param homeViewModel view model injection for the functionality
+ *
+ */
 @Composable
 fun HomeScreen(
     navController: NavHostController,

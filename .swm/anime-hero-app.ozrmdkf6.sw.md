@@ -5,7 +5,34 @@ file_version: 1.1.3
 app_version: 1.12.6
 ---
 
-First doc commit
+First doc commit<br/>
+
+<br/>
+
+This code snippet defines a function called `getAllAnimeHeroes` that returns a `Flow` of `PagingData` for retrieving a list of anime heroes. It uses a `PagingConfig` with a page size of 3 and a `Pager` to handle the pagination. The `pagingSourceFactory` is set to fetch data from a `animeHeroDao`. Additionally, it uses a `AnimeHeroRemoteMediator` to handle fetching remote data from an `animeHeroApi` and syncing it with a local `animeHeroDatabase`.
+<!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
+### 📄 app/src/main/java/com/tariq/animeheroes/data/repository/RemoteDataSourceImpl.kt
+```kotlin
+26         override fun getAllAnimeHeroes(): Flow<PagingData<AnimeHero>> {
+27             val pagingSourceFactory = { animeHeroDao.getAllAnimeHeroes() }
+28             return Pager(
+29                 config = PagingConfig(pageSize = 3),
+30                 remoteMediator = AnimeHeroRemoteMediator(
+31                     animeHeroApi = animeHeroApi,
+32                     animeHeroDatabase = animeHeroDatabase
+33                 ),
+34                 pagingSourceFactory = pagingSourceFactory
+35             ).flow
+36         }
+```
+
+<br/>
+
+<!--MERMAID {width:100}-->
+```mermaid
+
+```
+<!--MCONTENT {content: "<br/>"} --->
 
 <br/>
 

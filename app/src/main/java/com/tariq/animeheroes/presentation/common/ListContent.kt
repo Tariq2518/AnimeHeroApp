@@ -1,6 +1,9 @@
 package com.tariq.animeheroes.presentation.common
 
+
+import android.media.Image
 import android.media.Rating
+import android.view.Surface
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -50,6 +53,10 @@ import com.tariq.animeheroes.ui.theme.SMALL_PADDING
 import com.tariq.animeheroes.ui.theme.topAppBarContentColor
 import com.tariq.animeheroes.utils.Constants.LOCAL_BASE_URL
 
+/**
+ * @param animeHeroes : list of anime heroes shown in the lazyColumn
+ * @param navController : is used to handle the navigation from screens
+ */
 @Composable
 fun ListContent(
     animeHeroes: LazyPagingItems<AnimeHero>,
