@@ -2,7 +2,7 @@
 id: 7fejmib8
 title: AnimeHeroDatabase
 file_version: 1.1.3
-app_version: 1.12.0
+app_version: 1.18.4
 ---
 
 This code defines a `AnimeHeroDatabase` class that extends `RoomDatabase`. It is responsible for creating and managing the database for storing `AnimeHero` and `AnimeHeroRemoteKey` entities. It also provides access to the DAOs (`animeHeroDao()` and `heroRemoteKeyDao()`) for querying and manipulating the data in the database. Additionally, it specifies a type converter (`DatabaseConverter::class`) to handle converting custom types for database storage.
