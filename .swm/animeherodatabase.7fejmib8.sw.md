@@ -9,15 +9,27 @@ This code defines a `AnimeHeroDatabase` class that extends `RoomDatabase`. It is
 <!-- NOTE-swimm-snippet: the lines below link your snippet to Swimm -->
 ### 📄 app/src/main/java/com/tariq/animeheroes/data/local/AnimeHeroDatabase.kt
 ```kotlin
-11     @Database(entities = [AnimeHero::class, AnimeHeroRemoteKey::class], version = 1)
-12     @TypeConverters(DatabaseConverter::class)
-13     abstract class AnimeHeroDatabase: RoomDatabase() {
-14     
-15         abstract fun animeHeroDao(): AnimeHeroDao
+13     @Database(entities = [AnimeHero::class, AnimeHeroRemoteKey::class], version = 1)
+14     @TypeConverters(DatabaseConverter::class)
+15     abstract class AnimeHeroDatabase: RoomDatabase() {
 16     
-17         abstract fun heroRemoteKeyDao(): AnimeHeroRemoteKeyDao
-18     
-19     }
+17         companion object {
+18             fun create(context: Context, useInMemory: Boolean): AnimeHeroDatabase {
+19                 val databaseBuilder = if (useInMemory) {
+20                     Room.inMemoryDatabaseBuilder(context, AnimeHeroDatabase::class.java)
+21                 } else {
+22                     Room.databaseBuilder(context, AnimeHeroDatabase::class.java, "test_database.db")
+23                 }
+24                 return databaseBuilder
+25                     .fallbackToDestructiveMigration()
+26                     .build()
+27             }
+28         }
+29         abstract fun animeHeroDao(): AnimeHeroDao
+30     
+31         abstract fun heroRemoteKeyDao(): AnimeHeroRemoteKeyDao
+32     
+33     }
 ```
 
 <br/>
